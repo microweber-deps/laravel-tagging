@@ -187,8 +187,10 @@ trait Taggable
 		foreach($tagNames as $tagSlug) {
 			$tags = Tagged::where('tag_slug', call_user_func($normalizer, $tagSlug))
 				->where('taggable_type', $className)
-				->get()->pluck('taggable_id');
-		
+				->pluck('taggable_id');
+            if(!is_array($tags)){
+                $tags = array($tags);
+            }
 			$primaryKey = $this->getKeyName();
 			$query->whereIn($this->getTable().'.'.$primaryKey, $tags);
 		}
@@ -215,12 +217,14 @@ trait Taggable
 		
 		$tagNames = array_map($normalizer, $tagNames);
 		$className = $query->getModel()->getMorphClass();
-		
+
 		$tags = Tagged::whereIn('tag_slug', $tagNames)
 			->where('taggable_type', $className)
-			->get()->pluck('taggable_id');
-		
-		$primaryKey = $this->getKeyName();
+			->pluck('taggable_id');
+        if(!is_array($tags)){
+            $tags = array($tags);
+        }
+ 		$primaryKey = $this->getKeyName();
 		return $query->whereIn($this->getTable().'.'.$primaryKey, $tags);
 	}
 	
