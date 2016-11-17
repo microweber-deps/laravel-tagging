@@ -17,6 +17,13 @@ class GenerateTagGroup extends Command
     protected $signature = 'tagging:create-group {group_name}';
 
     /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name  = 'GenerateTagGroup';
+
+    /**
      * The console command description.
      *
      * @var string
