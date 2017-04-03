@@ -188,8 +188,8 @@ trait Taggable
 			$tags = Tagged::where('tag_slug', call_user_func($normalizer, $tagSlug))
 				->where('taggable_type', $className)
 				->pluck('taggable_id');
-            if(!is_array($tags)){
-             //   $tags = array($tags);
+            if(is_numeric($tags) or is_string($tags)){
+                $tags = array($tags);
             }
 
 			$primaryKey = $this->getKeyName();
@@ -222,8 +222,8 @@ trait Taggable
 		$tags = Tagged::whereIn('tag_slug', $tagNames)
 			->where('taggable_type', $className)
 			->pluck('taggable_id');
-        if(!is_array($tags)){
-         //   $tags = array($tags);
+        if(is_numeric($tags) or is_string($tags)){
+            $tags = array($tags);
         }
 
        // dd($tagNames);
