@@ -189,8 +189,9 @@ trait Taggable
 				->where('taggable_type', $className)
 				->pluck('taggable_id');
             if(!is_array($tags)){
-                $tags = array($tags);
+             //   $tags = array($tags);
             }
+
 			$primaryKey = $this->getKeyName();
 			$query->whereIn($this->getTable().'.'.$primaryKey, $tags);
 		}
@@ -222,9 +223,12 @@ trait Taggable
 			->where('taggable_type', $className)
 			->pluck('taggable_id');
         if(!is_array($tags)){
-            $tags = array($tags);
+         //   $tags = array($tags);
         }
- 		$primaryKey = $this->getKeyName();
+
+       // dd($tagNames);
+        $primaryKey = $this->getKeyName();
+
 		return $query->whereIn($this->getTable().'.'.$primaryKey, $tags);
 	}
 	
